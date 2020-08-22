@@ -1,16 +1,75 @@
+import React, { useState, useEffect } from 'react';
+import { Text, View, ScrollView, ActivityIndicator } from 'react-native';
 
-import React from 'react'
-import { Text, View } from 'react-native'
-
+import { Input, Button } from '../../components'
+import { connect } from 'react-redux';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { login} from '../../actions';
 
 const Login = (props) => {
-    return(
-        <View>
-        <Text>Login Screen</Text>
-    </View>
+    const [email, setEmail] = useState('csert@test.com')
+    const [password, setPassword] = useState('1234')
 
+    //normal burada useEffect var dı ama biz burada naviation 
+    //olmadan navigation prop eklenecek
+
+
+    return (
+        <ScrollView>
+            
+                
+                <View style={{
+                    alignItems: 'center',
+                    paddingTop: 30,
+                    flex: 1
+                }}>
+    
+                    <Input
+                        placeholder='email'
+                        value={email}
+                        onChangeText={(value) => setEmail(value)}
+                    />
+    
+                    <Input
+                        placeholder='password'
+                        value={password}
+                        onChangeText={(value) => setPassword(value)}
+                        secureTextEntry
+                    />
+    
+                    <Button
+                        text={'Login'}
+                        style={{ height: 40 }}
+                        loading={props.loading}
+                        onPress={() => {
+                            const params = {
+                                email,
+                                password
+                            }
+                            props.login(params)
+    
+                        }}
+                    />
+                  
+                    <TouchableOpacity
+                        style={{ marginTop: 30 }}
+                        onPress={() => props.navigation.navigate('Register')}
+                    >
+                        <Text>Sign Up!</Text>
+                    </TouchableOpacity>
+    
+                </View>
+
+            
+            
+        </ScrollView>
     )
 }
-    
 
-export default Login;
+
+const mapStateToProps = ({ authResponse }) => {
+    const { loading, user } = authResponse;
+    return { loading,user };
+};
+
+export default connect(mapStateToProps, {login})(Login);
