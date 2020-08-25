@@ -14,12 +14,12 @@ import {get } from './api'
 //daha kolay yönetmek için
 //çünkü login ve register istekleri benzer parametler içeriyor
 
-export const getlist = (params) => {
+export const getList = (params) => {
     return (dispatch) => {
        
         get( //bu methot apiye gidecek
             BASE_URL.concat('/api/characters'),
-            params,
+            params ? params : {},
             dispatch,
             LIST_START ,
             LIST_SUCCESS,

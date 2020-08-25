@@ -25,7 +25,7 @@ import {
         return {
           ...state,
           loadingCharacter: false, //sipinner artık dönmüyor
-          characters: action.payload// burada gelen payloadı user'a yazıyouz //user dolu geliyor
+          characters: action.payload.characters// burada gelen payloadı user'a yazıyouz //user dolu geliyor
         };
   
       
